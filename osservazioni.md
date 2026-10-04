@@ -53,3 +53,15 @@ Passaggio 2 — Git
 Come riconosco nella cronologia i commit dei due step:
 
 Come ho verificato che la versione finale sia presente su GitHub:
+
+
+
+
+Verifica commit completata con successo da GitHub
+
+
+
+
+
+
+
