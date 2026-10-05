@@ -58,9 +58,9 @@ Fase 2 — Parametri e calcolo fisico
 
 
 Passaggio 2 — Git
-Come riconosco nella cronologia i commit dei due step:
+Come riconosco nella cronologia i commit dei due step: Dalla nota che inserisco nel comando git commit -m
 
-Come ho verificato che la versione finale sia presente su GitHub:
+Come ho verificato che la versione finale sia presente su GitHub: sempre con il codice alfanumerico citato sopra
 
 
 
