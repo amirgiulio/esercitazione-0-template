@@ -20,34 +20,42 @@ Output richiesto e comportamento del programma prima della modifica: Il codice n
 Esito dopo la modifica e spiegazione della correzione: che il programma stampa la frase richiesta
 
 Passaggio 1 — Git
-Quali file ho incluso nel commit e perché: ciao.c in quanto sorgente, osservazioni.md in quanto richiesto.
+Quali file ho incluso nel commit e perché: hello.c in quanto modificato rispetto alla versione presente sul browsers e  osservazioni.md.
 
-Come ho verificato che la versione provata sia presente su GitHub: ho controllato e aperto il repository online, aggiornando la pagina.
+Come ho verificato che la versione provata sia presente su GitHub: con il comando " git log --oneline -5" eseguito da terminale viene fornito un codice alfanumerico, che deve poi essere confrontato nel browsers con il codice associato all'ultima versione caricata nel repository. Se coincidono la versione è presente su github
 
-Che cosa ho osservato prima e dopo git pull, e perché non serve un nuovo clone: ​​prima di 'git pull' osservazioni.md non è cambiato localmente, dopo git pull è invece cambiato. Non servire nuovamente clone, in quanto la repository in locale è già scaricata. 'git pull ' dunque aggiorna la copia in locale.
+Che cosa ho osservato prima e dopo git pull, e perché non serve un nuovo clone: Dopo il git pull è possibile vedere dal terminale le modifiche effettuate dal browsers, non è necessario effettuare il nuovo clone in quanto quei file sono gia presenti nel nostro computer ma necessitano solo di essere aggiornati.
 
 Passo 2 — Eco: prima prova
-Argomenti passati, comando e risultato: char *testo = argv[1]; int intero = atoi(argv[2]); doppio reale = atof(argv[3]);
+Argomenti passati, comando e risultato: Argomenti passati: Hello 42 3.14; Comando eseguito: ./programma Hello 42 3.14; Risultato ottenuto: Hello 42 3.140000
 
-printf("%s %d %.6f\n", testo, intero, reale);
-
-il risultato è la stampa di una terna (testo, intero (attraverso atoi), reale (attraverso atof)) dipendente dalle stringhe di caratteri inserite dopo ./eco
-Che cosa posso concludere: l'utilizzo di atoi e atof consente in maniera rapida di estrarre da stringhe rispettivamente interi e double, restituisce ma semplicemente 0 nel caso in cui non vi siano interi e double da estrarre. Le funzioni nella seconda prova di eco sono invece più dettagliate. Se si inseriscono più o meno di 4 argomenti, il programma ricorda cosa va inserito attraverso printf.
+Che cosa posso concludere: Le funzioni atoi e atof hanno convertito  gli argomenti nei rispettivi tipi dati numerici (int e double).
 
 Step 2 — Eco: seconda prova
-Argomenti passati, comando e risultato: char *testo = argv[1]; int intero = leggi_intero(argv[2]); doppio reale = leggi_reale(argv[3]); printf("%s %d %.6f\n", testo, intero, reale);
 
-Che cosa ho capito su testo, conversioni e stampa: gli elementi di argv non sono già numeri: sono stringhe di caratteri, passando 0012 come primo argomento esso rimarrà char *, come secondo e terzo assumerà il valore di intero (12) o double (12.000000). Si può passare un testo che contiene spazi come unico argomento usando "...". Se si scrive 1.25e1 come terzo argomento esso verrà stampato come richiesto, ovvero 12.500000, la rappresentazione usata e l'output del programma non sono dipendenti. In eco2.c, come osservabile nel codice nelle funzioni fornite, il programma risponde attraverso printf come "Il secondo argomento deve essere un intero in base 10", oppure "Il secondo argomento ha un valore fuori intervallo...", restituendo exit(2).
 
-Passaggio 2 — Risultato ed errori
-Previsioni per l'esecuzione con argomenti validi e per quella con dodici: nel primo caso eco.txt è non vuoto e contiene l'output richiesto, inoltre, il ritorno di main è 0. Nel secondo caso è vuoto e il valore di main è 2.
+Argomenti passati, comando e risultato: 
 
-Contenuto dei eco.txtmessaggi nel terminale e dei codici di uscita osservati: la previsione è corretta.
+Passo 2 — Risultato ed errori
 
-Come un controllo automatico può riconoscere un errore: ??????
+Argomenti passati, comando e risultato:Argomenti passati: testo 12 3.14; Comando eseguito: ./programma testo 12 3.14; Risultato ottenuto: testo 12 3.140000
+
+
+Che cosa ho capito su testo, conversioni e stampa: gli elementi di argv non sono già numeri:
+Gli elementi dell'array argv sono sempre stringhe di caratteri (tipo char *). Anche se l'utente inserisce "12" o "3.14", il programma li riceve inizialmente come testo. Per poterli utilizzare come numeri in calcoli o formattarli correttamente, è necessario convertirli esplicitamente in tipi numerici (int, double) usando funzioni come strtol e strtod (o atoi e atof). La printf userà poi i corrispondenti identificatori.
+
+
+Previsioni per l'esecuzione con argomenti validi e per quella con dodici: Con argomenti validi (es. "testo 12 3.14"): Il programma converte correttamente i valori numerici, li stampa sullo standard output e termina con "dodici" al posto di un numero (es. "testo dodici 3.14"): Le funzioni di conversione falliscono (poiché "dodici" contiene lettere e non cifre). Il programma rileva l'errore, stampa un messaggio di errore esplicito su stderr e termina interrompendo l'esecuzione.
+
+
+Contenuto dei messaggi nel terminale e dei codici di uscita osservati: Caso argomenti errati (es. ./programma testo dodici 3.14) e messaggio su stderr: "Il secondo argomento deve essere un intero in base 10 con codice di uscita (exit code): 2. Nel caso con numero di argomenti errato (es. ./programma testo 12) il messaggio su stderr: "Uso: ./programma TESTO INTERO REALE" con codice di uscita (exit code): 2
+
+
+Come un controllo automatico può riconoscere un errore:
+Un sistema di correzione o controllo automatico riconosce un errore valutando due aspetti principali: IL primo codice di uscita che verifica il valore restituito dal programma (es. echo $?). Se il codice è diverso da 0 (in questo caso 2), il controllo sa che si è verificato un errore. E poi con il flusso di errore standard (stderr) con cui il controllo cattura l'output del programma inviato a stderr invece che a stdout e lo confronta con il messaggio di errore atteso.
 
 Fase 2 — Parametri e calcolo fisico
-Quando servire ricompilare e quando basta cambiare gli argomenti: nel caso in cui sia necessario cambiare parametro, non occorre ricompliare: basterà sfruttare gli argomenti della funzione principale e delle funzioni fornite (oppure di quelle suggerite atof e atoi). Modificare una formula (e dunque non i valori da immetterci) richiederà invece di dover ricompilare il file.c. Si può pensare che, dove avremmo un tempo messo scanf, adesso non è più necessario ricompilare, mentre negli altri casi rimane cosa da fare.
+
 
 Passaggio 2 — Git
 Come riconosco nella cronologia i commit dei due step:
